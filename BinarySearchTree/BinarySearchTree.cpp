@@ -4,6 +4,7 @@
 #include <iostream>
 #include "BST.h"
 #include "BinarySearchTree.h"
+#include <list>
 
 using namespace std;
 
@@ -11,14 +12,15 @@ int main()
 {
     cout << "Hello World!\n";
 
-	BST* bst = new BST();
-	bst->Insert(10, "a");
-	bst->Insert(5, "b");
-	bst->Insert(6, "c");
-	bst->Insert(1, "d");
-	bst->Insert(8, "e");
-	bst->Insert(3, "f");
-
+	BST bst;
+	bst.root = bst.Insert(bst.root, 10, "a");
+	bst.Insert(bst.root, 5, "b");
+	bst.Insert(bst.root, 6, "c");
+	bst.Insert(bst.root, 1, "d");
+	bst.Insert(bst.root, 8, "e");
+	bst.Insert(bst.root, 3, "f");
+	string* itemtype = bst.IterativeLookUp(8);
+	cout << *itemtype << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

@@ -1,17 +1,17 @@
 #include "BST.h"
+#include <iostream>
 
 BST::ItemType* BST::IterativeLookUp(BST::KeyType keyType)
 {	
 	Node* currentNode = root;
 
-	while (currentNode->Key == keyType && currentNode != nullptr)
+	while (currentNode != nullptr && currentNode->Key != keyType)
 	{
-
-		if (currentNode->Key < keyType)
+		if (currentNode->Key > keyType)
 		{
 			currentNode = currentNode->LeftChild;
 		}
-		else if (currentNode->Key > keyType)
+		else if (currentNode->Key < keyType)
 		{
 			currentNode = currentNode->RightChild;
 		}
@@ -27,18 +27,20 @@ BST::ItemType* BST::RecursiveLookUp(BST::KeyType keyType)
 
 BST::ItemType* BST::RecursiveLookUpWorker(BST::Node* node, BST::KeyType keyType)
 {
+	if (node == nullptr)
+		return nullptr;
 
 	if (node->Key == keyType)
 	{
 		return &node->Item;
 	}
-	else if (node->Key <= keyType)
+	else if (node->Key > keyType)
 	{
-		RecursiveLookUpWorker(node->LeftChild, keyType);
+		return RecursiveLookUpWorker(node->LeftChild, keyType);
 	}
-	else if (node->Key >= keyType)
+	else if (node->Key < keyType)
 	{
-		RecursiveLookUpWorker(node->RightChild, keyType);
+		return RecursiveLookUpWorker(node->RightChild, keyType);
 	}
 	
 }
@@ -48,37 +50,39 @@ BST::ItemType* BST::Lookup(KeyType keyType)
 	return nullptr;
 }
 
-void BST::Insert(KeyType keyType, ItemType itemType)
+BST::Node* BST::Insert(Node* nr, KeyType keyType, ItemType itemType)
 {
-	if (!root) 
+	if (nr == nullptr) 
 	{
-		// Insert the first node, if root is NULL.
-		root = new Node(keyType, itemType);
+		// Insert the first node, if nr is NULL.
+		Node* node = new Node(keyType, itemType);
+		return node;
 	}
 	else 
 	{
 		// Insert data.
-		if (keyType > root->Key) 
+		if (keyType > nr->Key) 
 		{
 			// Insert right node data, if the 'value'
-			// to be inserted is greater than 'root' node data.
+			// to be inserted is greater than 'nr' node data.
 
 			// Process right nodes.
-			root->RightChild = new Node(keyType, itemType);
+			nr->RightChild = Insert(nr->RightChild, keyType, itemType);
 		}
-		else if (keyType < root->Key) 
+		else if (keyType < nr->Key) 
 		{
 			// Insert left node data, if the 'value'
-			// to be inserted is smaller than 'root' node data.
+			// to be inserted is smaller than 'nr' node data.
 
 			// Process left nodes.
-			root->LeftChild = new Node(keyType, itemType);
+			nr->LeftChild = Insert(nr->LeftChild, keyType, itemType);
 		}
-		else if (keyType == root->Key)
+		else if (keyType == nr->Key)
 		{
-			root = new Node(keyType, itemType);
+			nr->Item = itemType;
 		}
 	}
+	return nr;
 }
 
 bool BST::Remove(KeyType keyType)

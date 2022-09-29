@@ -5,28 +5,8 @@ using namespace std;
 
 class BST
 {
-	public:
-		using KeyType = int;
-		using ItemType = string;
-
-		ItemType* Lookup(KeyType keyType);
-		void Insert(KeyType keyType, ItemType itemType);
-		bool Remove(KeyType keyType);
-
-		ItemType* IterativeLookUp(KeyType keyType);
-		ItemType* RecursiveLookUp(KeyType keyType);
-		BST() = default;
-
-	private:
-		struct Node;
-		Node* root = nullptr;
-
-	private:
-		static Node* Leaf();
-		static bool IsLeaf(Node* node);
-		ItemType* RecursiveLookUpWorker(Node* node, KeyType keyType);
-
-
+	using KeyType = int;
+	using ItemType = string;
 	struct Node
 	{
 		Node(KeyType key, ItemType item)
@@ -36,12 +16,27 @@ class BST
 			LeftChild = nullptr;
 			RightChild = nullptr;
 		};
-		
 		KeyType Key;
 		ItemType Item;
 		Node* LeftChild;
 		Node* RightChild;
 	};
 
+	public:
+		ItemType* Lookup(KeyType keyType);
+		Node* Insert(Node* nr, KeyType keyType, ItemType itemType);
+		bool Remove(KeyType keyType);
+		Node* root = nullptr;
+		ItemType* IterativeLookUp(KeyType keyType);
+		ItemType* RecursiveLookUp(KeyType keyType);
+		BST() = default;
+
+	private:
+		struct Node;
+
+	private:
+		static Node* Leaf();
+		static bool IsLeaf(Node* node);
+		ItemType* RecursiveLookUpWorker(Node* node, KeyType keyType);
 	
 };
