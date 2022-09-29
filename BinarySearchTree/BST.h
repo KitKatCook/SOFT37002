@@ -15,6 +15,7 @@ class BST
 
 		ItemType* IterativeLookUp(KeyType keyType);
 		ItemType* RecursiveLookUp(KeyType keyType);
+		BST() = default;
 
 	private:
 		struct Node;
@@ -32,6 +33,8 @@ class BST
 		{
 			Key = key;
 			Item = item;
+			LeftChild = nullptr;
+			RightChild = nullptr;
 		};
 		
 		KeyType Key;
@@ -40,5 +43,5 @@ class BST
 		Node* RightChild;
 	};
 
-	BST() = default;
+	
 };

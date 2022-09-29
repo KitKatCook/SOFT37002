@@ -50,27 +50,34 @@ BST::ItemType* BST::Lookup(KeyType keyType)
 
 void BST::Insert(KeyType keyType, ItemType itemType)
 {
-	if (!root) {
+	if (!root) 
+	{
 		// Insert the first node, if root is NULL.
 		root = new Node(keyType, itemType);
 	}
-	else {
+	else 
+	{
 		// Insert data.
-		if (keyType > root->Key) {
+		if (keyType > root->Key) 
+		{
 			// Insert right node data, if the 'value'
 			// to be inserted is greater than 'root' node data.
 
 			// Process right nodes.
 			root->RightChild = new Node(keyType, itemType);
 		}
-		else if (keyType < root->Key) {
+		else if (keyType < root->Key) 
+		{
 			// Insert left node data, if the 'value'
 			// to be inserted is smaller than 'root' node data.
 
 			// Process left nodes.
 			root->LeftChild = new Node(keyType, itemType);
 		}
-
+		else if (keyType == root->Key)
+		{
+			root = new Node(keyType, itemType);
+		}
 	}
 }
 

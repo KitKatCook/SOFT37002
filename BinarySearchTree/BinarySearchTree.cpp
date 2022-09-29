@@ -2,10 +2,23 @@
 //
 
 #include <iostream>
+#include "BST.h"
+#include "BinarySearchTree.h"
+
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    cout << "Hello World!\n";
+
+	BST* bst = new BST();
+	bst->Insert(10, "a");
+	bst->Insert(5, "b");
+	bst->Insert(6, "c");
+	bst->Insert(1, "d");
+	bst->Insert(8, "e");
+	bst->Insert(3, "f");
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
