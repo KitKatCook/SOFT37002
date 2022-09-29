@@ -1,27 +1,27 @@
-// BinarySearchTree.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include "BST.h"
 #include "BinarySearchTree.h"
-#include <list>
 
 using namespace std;
 
+
+
 int main()
 {
-    cout << "Hello World!\n";
+    cout << "Binary Search Tree!\n";
 
 	BST bst;
-	bst.root = bst.Insert(bst.root, 10, "a");
-	bst.Insert(bst.root, 5, "b");
-	bst.Insert(bst.root, 6, "c");
-	bst.Insert(bst.root, 1, "d");
-	bst.Insert(bst.root, 8, "e");
-	bst.Insert(bst.root, 3, "f");
-	string* itemtype = bst.IterativeLookUp(8);
-	cout << *itemtype << endl;
+	bst.root = bst.Insert(bst.root, 100, "First");
+	bst.Insert(bst.root, 50, "Second");
+	bst.Insert(bst.root, 150, "Third");
+
+	cout << *bst.IterativeLookUp(100) << endl;
+	cout << *bst.IterativeLookUp(50) << endl;
+	cout << *bst.IterativeLookUp(150) << endl;
 }
+
+
+
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

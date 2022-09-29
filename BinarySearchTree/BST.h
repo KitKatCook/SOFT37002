@@ -24,7 +24,7 @@ class BST
 
 	public:
 		ItemType* Lookup(KeyType keyType);
-		Node* Insert(Node* nr, KeyType keyType, ItemType itemType);
+		Node* Insert(Node* nodeRoot, KeyType keyType, ItemType itemType);
 		bool Remove(KeyType keyType);
 		Node* root = nullptr;
 		ItemType* IterativeLookUp(KeyType keyType);

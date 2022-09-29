@@ -50,39 +50,29 @@ BST::ItemType* BST::Lookup(KeyType keyType)
 	return nullptr;
 }
 
-BST::Node* BST::Insert(Node* nr, KeyType keyType, ItemType itemType)
+BST::Node* BST::Insert(Node* nodeRoot, KeyType keyType, ItemType itemType)
 {
-	if (nr == nullptr) 
+	if (nodeRoot == nullptr) 
 	{
-		// Insert the first node, if nr is NULL.
 		Node* node = new Node(keyType, itemType);
 		return node;
 	}
 	else 
 	{
-		// Insert data.
-		if (keyType > nr->Key) 
+		if (keyType > nodeRoot->Key) 
 		{
-			// Insert right node data, if the 'value'
-			// to be inserted is greater than 'nr' node data.
-
-			// Process right nodes.
-			nr->RightChild = Insert(nr->RightChild, keyType, itemType);
+			nodeRoot->RightChild = Insert(nodeRoot->RightChild, keyType, itemType);
 		}
-		else if (keyType < nr->Key) 
+		else if (keyType < nodeRoot->Key) 
 		{
-			// Insert left node data, if the 'value'
-			// to be inserted is smaller than 'nr' node data.
-
-			// Process left nodes.
-			nr->LeftChild = Insert(nr->LeftChild, keyType, itemType);
+			nodeRoot->LeftChild = Insert(nodeRoot->LeftChild, keyType, itemType);
 		}
-		else if (keyType == nr->Key)
+		else if (keyType == nodeRoot->Key)
 		{
-			nr->Item = itemType;
+			nodeRoot->Item = itemType;
 		}
 	}
-	return nr;
+	return nodeRoot;
 }
 
 bool BST::Remove(KeyType keyType)
