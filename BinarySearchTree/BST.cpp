@@ -20,7 +20,6 @@ BST::ItemType* BST::IterativeLookUp(BST::KeyType keyType)
 	return &currentNode->Item;
 }
 
-
 BST::ItemType* BST::RecursiveLookUp(BST::KeyType keyType)
 {
 	return RecursiveLookUpWorker(root, keyType);
@@ -51,13 +50,34 @@ BST::ItemType* BST::Lookup(KeyType keyType)
 
 void BST::Insert(KeyType keyType, ItemType itemType)
 {
+	if (!root) {
+		// Insert the first node, if root is NULL.
+		root = new Node(keyType, itemType);
+	}
+	else {
+		// Insert data.
+		if (keyType > root->Key) {
+			// Insert right node data, if the 'value'
+			// to be inserted is greater than 'root' node data.
+
+			// Process right nodes.
+			root->RightChild = new Node(keyType, itemType);
+		}
+		else if (keyType < root->Key) {
+			// Insert left node data, if the 'value'
+			// to be inserted is smaller than 'root' node data.
+
+			// Process left nodes.
+			root->LeftChild = new Node(keyType, itemType);
+		}
+
+	}
 }
 
 bool BST::Remove(KeyType keyType)
 {
 	return false;
 }
-
 
 BST::Node* BST::Leaf()
 {
