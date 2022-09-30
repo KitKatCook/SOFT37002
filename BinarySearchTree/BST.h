@@ -7,6 +7,7 @@ class BST
 {
 	using KeyType = int;
 	using ItemType = string;
+
 	struct Node
 	{
 		Node(KeyType key, ItemType item)
@@ -28,8 +29,9 @@ class BST
 		bool Remove(KeyType keyType);
 		Node* root = nullptr;
 		ItemType* IterativeLookUp(KeyType keyType);
-		ItemType* RecursiveLookUp(KeyType keyType);
+		Node* RecursiveLookUp(KeyType keyType);
 		BST() = default;
+		void PrintInOrder(Node* node);
 
 	private:
 		struct Node;
@@ -37,6 +39,7 @@ class BST
 	private:
 		static Node* Leaf();
 		static bool IsLeaf(Node* node);
-		ItemType* RecursiveLookUpWorker(Node* node, KeyType keyType);
-	
+		Node* RecursiveLookUpWorker(Node* node, KeyType keyType);
 };
+
+

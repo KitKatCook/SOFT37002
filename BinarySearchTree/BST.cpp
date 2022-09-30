@@ -20,19 +20,19 @@ BST::ItemType* BST::IterativeLookUp(BST::KeyType keyType)
 	return &currentNode->Item;
 }
 
-BST::ItemType* BST::RecursiveLookUp(BST::KeyType keyType)
+BST::Node* BST::RecursiveLookUp(BST::KeyType keyType)
 {
 	return RecursiveLookUpWorker(root, keyType);
 }
 
-BST::ItemType* BST::RecursiveLookUpWorker(BST::Node* node, BST::KeyType keyType)
+BST::Node* BST::RecursiveLookUpWorker(BST::Node* node, BST::KeyType keyType)
 {
 	if (node == nullptr)
 		return nullptr;
 
 	if (node->Key == keyType)
 	{
-		return &node->Item;
+		return node;
 	}
 	else if (node->Key > keyType)
 	{
@@ -42,7 +42,7 @@ BST::ItemType* BST::RecursiveLookUpWorker(BST::Node* node, BST::KeyType keyType)
 	{
 		return RecursiveLookUpWorker(node->RightChild, keyType);
 	}
-	
+
 }
 
 BST::ItemType* BST::Lookup(KeyType keyType)
@@ -77,6 +77,22 @@ BST::Node* BST::Insert(Node* nodeRoot, KeyType keyType, ItemType itemType)
 
 bool BST::Remove(KeyType keyType)
 {
+	//one child of the node is a leaf;
+	//neither child of the node is a leaf.
+
+	Node* node = RecursiveLookUp(keyType);
+
+	if (node == nullptr) {
+		return false;
+	}
+
+	//both children of the node are leaves;
+	if (node->LeftChild == nullptr && node->RightChild == nullptr) 
+	{
+		free(node);
+	}
+
+
 	return false;
 }
 
@@ -88,4 +104,16 @@ BST::Node* BST::Leaf()
 bool BST::IsLeaf(Node* node)
 {
 	return (node == nullptr);
+}
+
+void BST::PrintInOrder(Node* node)
+{
+	if (node == NULL)
+		return;
+
+	PrintInOrder(node->LeftChild);
+
+	cout << node->Item << " ";
+
+	PrintInOrder(node->RightChild);
 }
