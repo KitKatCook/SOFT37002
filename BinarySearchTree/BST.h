@@ -5,8 +5,9 @@ using namespace std;
 
 class BST
 {
-	using KeyType = int;
-	using ItemType = string;
+	public:
+		using KeyType = int;
+		using ItemType = string;
 
 	struct Node
 	{
