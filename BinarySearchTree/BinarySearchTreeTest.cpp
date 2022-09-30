@@ -44,3 +44,32 @@ BOOST_AUTO_TEST_CASE(RecursiveLookUp_SingleNode_ReturnsCorrectValue)
 
     BOOST_CHECK_EQUAL(node->Item, "A");
 }
+
+BOOST_AUTO_TEST_CASE(RecursiveLookUp_MultipleNode_ReturnsCorrectValue)
+{
+    BST bst = BST();
+
+    bst.root = bst.Insert(bst.root, 10, "A");
+    bst.Insert(bst.root, 20, "B");
+    bst.Insert(bst.root, 5, "C");
+    bst.Insert(bst.root, 8, "D");
+
+    BST::Node* node = bst.RecursiveLookUp(8);
+
+    BOOST_CHECK_EQUAL(node->Item, "A");
+
+
+    BST::Node* node = bst.RecursiveLookUp(8);
+
+    BOOST_CHECK_EQUAL(node->Item, "B");
+
+
+    BST::Node* node = bst.RecursiveLookUp(8);
+
+    BOOST_CHECK_EQUAL(node->Item, "C");
+
+
+    BST::Node* node = bst.RecursiveLookUp(8);
+
+    BOOST_CHECK_EQUAL(node->Item, "D");
+}
