@@ -155,6 +155,7 @@
     <ClCompile Include="BinarySearchTreeTest.cpp" />
     <ClCompile Include="BST.cpp" />
     <ClCompile Include="UtilityMethods.cpp" />
+    <ClCompile Include="UtilityMethodsTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
