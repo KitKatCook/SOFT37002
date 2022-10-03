@@ -1,5 +1,7 @@
 #include "BST.h"
 #include <iostream>
+#include <iterator>
+#include <list>
 
 BST::ItemType* BST::IterativeLookUp(BST::KeyType keyType)
 {	
@@ -77,7 +79,6 @@ BST::Node* BST::Insert(Node* nodeRoot, KeyType keyType, ItemType itemType)
 
 bool BST::Remove(KeyType keyType)
 {
-	//one child of the node is a leaf;
 	//neither child of the node is a leaf.
 
 	Node* node = RecursiveLookUp(keyType);
@@ -90,7 +91,30 @@ bool BST::Remove(KeyType keyType)
 	if (node->LeftChild == nullptr && node->RightChild == nullptr) 
 	{
 		free(node);
+		return true;
 	}
+	
+	//one child of the node is a leaf;
+	if (curr->leftChild == nullptr || curr->rightChild == nullptr) {
+		Node* temp;
+
+		if (curr->leftChild == nullptr)
+			temp = curr->rightChild;
+		else
+			temp = curr->leftChild;
+
+		//root node, shallow delete
+		if (prev == nullptr)
+			return temp;
+
+		if (curr == prev->leftChild)
+			prev->leftChild = temp;
+		else
+			prev->rightChild = temp;
+
+		free(curr);
+	}
+
 
 
 	return false;
@@ -116,4 +140,129 @@ void BST::PrintInOrder(Node* node)
 	cout << node->Item << " ";
 
 	PrintInOrder(node->RightChild);
+}
+
+//In-order traversal
+list<BST::Node*> BST::InOrder(BST::Node* nr)
+{
+	list<int>::iterator it1;
+	list<int>::iterator it2;
+	list<Node*> listg;
+	if (nr == nullptr) 
+	{
+		return listg;
+	}
+
+	list<Node*> leftList = InOrder(nr->leftChild);
+	for (auto const& i : leftList) {
+		listg.push_back(i);
+	}
+	listg.push_back(nr);
+	list<Node*> rightList = InOrder(nr->rightChild);
+	for (auto const& i : rightList) {
+		listg.push_back(i);
+	}
+	return listg;
+}
+
+void BST::PivotRight(KeyType key) 
+{
+	Node* curr = root;
+	Node* prev = root;
+
+	while (curr != nullptr && curr->key != key) {
+		prev = curr;
+		if (key < curr->key)
+			curr = curr->leftChild;
+		else
+			curr = curr->rightChild;
+	}
+
+	if (curr == nullptr)
+		return;
+	Node* nr = pivot_right(curr);
+	if (curr = prev->leftChild)
+		prev->leftChild = nr;
+	else
+		prev->rightChild = nr;
+}
+
+void BST::PivotLeft(KeyType key) {
+	Node* curr = root;
+	Node* prev = root;
+
+	while (curr != nullptr && curr->key != key) {
+		prev = curr;
+		if (key < curr->key)
+			curr = curr->leftChild;
+		else
+			curr = curr->rightChild;
+	}
+
+	if (curr == nullptr)
+		return;
+	Node* nr = pivot_left(curr);
+	if (curr = prev->leftChild)
+		prev->leftChild = nr;
+	else
+		prev->rightChild = nr;
+}
+
+BST::Node* BST::PivotRight(BST::Node* B)
+{
+	Node* A = B->leftChild;
+	if (A == nullptr)
+		return B;
+	Node* beta = A->rightChild;
+	A->rightChild = B;
+	B->leftChild = beta;
+	return A;
+}
+
+BST::Node* BST::PivotLeft(BST::Node* A)
+{
+	Node* B = A->rightChild;
+	if (B == nullptr)
+		return A;
+	Node* beta = B->leftChild;
+	B->leftChild = A;
+	A->rightChild = beta;
+
+	return B;
+}
+
+//Pre-order traversal
+list<BST::Node*> BST::PreOrder(Node* nr)
+{
+	list<int>::iterator it1;
+	list<int>::iterator it2;
+	list<Node*> listg;
+	if (nr == nullptr)
+		return listg;
+	listg.push_back(nr);
+	list<Node*> leftList = preorder(nr->leftChild);
+	for (auto const& node : leftList)
+		listg.push_back(node);
+	list<Node*> rightList = preorder(nr->rightChild);
+	for (auto const& node : rightList)
+		listg.push_back(node);
+	return listg;
+}
+
+//Post-order traversal
+list<BST::Node*> BST::PostOrder(Node* nr)
+{
+	list<int>::iterator it1;
+	list<int>::iterator it2;
+	list<Node*> listg;
+	if (nr == nullptr)
+		return listg;
+	list<Node*> leftList = preorder(nr->leftChild);
+	for (auto const& node : leftList)
+		listg.push_back(node);
+	list<Node*> rightList = preorder(nr->rightChild);
+	for (auto const& node : rightList)
+		listg.push_back(node);
+	listg.push_back(nr);
+	return listg;
 }
