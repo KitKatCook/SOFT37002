@@ -154,10 +154,12 @@
     <ClCompile Include="BinarySearchTree.cpp" />
     <ClCompile Include="BinarySearchTreeTest.cpp" />
     <ClCompile Include="BST.cpp" />
+    <ClCompile Include="UtilityMethods.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinarySearchTree.h" />
     <ClInclude Include="BST.h" />
+    <ClInclude Include="UtilityMethods.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
