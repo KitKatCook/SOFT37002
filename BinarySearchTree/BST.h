@@ -2,6 +2,7 @@
 #include <string>
 #include <iterator>
 #include <list>
+#include <iostream>
 
 using namespace std; 
 
@@ -10,7 +11,7 @@ class BST
 	public:
 		using KeyType = int;
 		using ItemType = string;
-
+	
 	struct Node
 	{
 		Node(KeyType key, ItemType item)
@@ -30,14 +31,14 @@ class BST
 
 	public:
 		ItemType* Lookup(KeyType keyType);
-		Node* Insert(Node* nodeRoot, KeyType keyType, ItemType itemType);
+		BST::Node* Insert(BST::Node* nodeRoot, KeyType keyType, ItemType itemType);
 		bool Remove(KeyType keyType);
 		BST::Node* Remove(BST::Node* node, KeyType keyType);
-		Node* root = nullptr;
+		BST::Node* root = nullptr;
 		ItemType* IterativeLookUp(KeyType keyType);
-		Node* RecursiveLookUp(KeyType keyType);
+		BST::Node* RecursiveLookUp(KeyType keyType);
 		BST() = default;
-		void PrintInOrder(Node* node);
+		void PrintInOrder(BST::Node* node);
 
 		list<BST::Node*> InOrder(BST::Node* node);
 
@@ -56,10 +57,7 @@ class BST
 		int GetHeight(Node* N);
 
 	private:
-		struct Node;
-
-	private:
-		static Node* Leaf();
+		static BST::Node* Leaf();
 		static bool IsLeaf(Node* node);
 		Node* RecursiveLookUpWorker(Node* node, KeyType keyType);
 };

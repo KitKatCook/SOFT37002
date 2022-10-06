@@ -1,6 +1,4 @@
 #include "BST.h"
-#include <iostream>
-
 
 BST::ItemType* BST::IterativeLookUp(BST::KeyType keyType)
 {	
@@ -42,6 +40,9 @@ BST::Node* BST::RecursiveLookUpWorker(BST::Node* node, BST::KeyType keyType)
 	else if (node->Key < keyType)
 	{
 		return RecursiveLookUpWorker(node->RightChild, keyType);
+	}
+	else {
+		return nullptr;
 	}
 
 }

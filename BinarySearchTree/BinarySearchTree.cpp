@@ -20,6 +20,8 @@ int main()
 	cout << *bst.IterativeLookUp(50) << endl;
 
 	bst.PrintInOrder(bst.root);
+
+	return 0;
 }
 
 
