@@ -1,6 +1,8 @@
 #define BOOST_TEST_MODULE BinarySearchTreeTest
 #include <boost/test/included/unit_test.hpp>
 #include "../BinarySearchTree/BST.h"
+#include <string>
+
 
 using namespace std;
 struct GlobalFixture {

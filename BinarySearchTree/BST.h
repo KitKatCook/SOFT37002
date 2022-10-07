@@ -58,8 +58,8 @@ class BST
 
 	private:
 		static BST::Node* Leaf();
-		static bool IsLeaf(Node* node);
-		Node* RecursiveLookUpWorker(Node* node, KeyType keyType);
+		static bool IsLeaf(BST::Node* node);
+		BST::Node* RecursiveLookUpWorker(BST::Node* node, KeyType keyType);
 };
 
 

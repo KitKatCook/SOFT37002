@@ -52,11 +52,11 @@ BST::ItemType* BST::Lookup(KeyType keyType)
 	return nullptr;
 }
 
-BST::Node* BST::Insert(Node* nodeRoot, KeyType keyType, ItemType itemType)
+BST::Node* BST::Insert(BST::Node* nodeRoot, KeyType keyType, ItemType itemType)
 {
 	if (nodeRoot == nullptr) 
 	{
-		Node* node = new Node(keyType, itemType);
+		BST::Node* node = new BST::Node(keyType, itemType);
 		return node;
 	}
 	else 
