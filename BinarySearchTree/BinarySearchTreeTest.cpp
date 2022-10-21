@@ -32,9 +32,23 @@ BOOST_FIXTURE_TEST_SUITE(s, BstTester)
 
     BOOST_AUTO_TEST_CASE(IterativeLookUp_MultipleNodes_ReturnsCorrectValue)
     {
-        BST::ItemType* itemType = BinarySearchTree.IterativeLookUp(20);
+        BST::ItemType* itemType = BinarySearchTree.IterativeLookUp(10);
+        BOOST_CHECK_EQUAL(*itemType, "A");
 
+        itemType = BinarySearchTree.IterativeLookUp(20);
         BOOST_CHECK_EQUAL(*itemType, "B");
+
+        //5, "C"
+        //8, "D"
+        //18, "E"
+        //7, "F"
+        //99, "G"
+        //1, "H"
+        //4, "I"
+        //26, "J"
+        //54, "K"
+        //37, "L"
+
     }
 
     BOOST_AUTO_TEST_CASE(IterativeLookUp_SingleNode_ReturnsCorrectValue)
