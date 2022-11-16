@@ -52,29 +52,44 @@ BST::ItemType* BST::Lookup(KeyType keyType)
 	return nullptr;
 }
 
-BST::Node* BST::Insert(BST::Node* nodeRoot, KeyType keyType, ItemType itemType)
+BST::Node* BST::Insert(BST::Node* node, KeyType keyType, ItemType itemType) 
 {
-	if (nodeRoot == nullptr) 
+	return this->InsertNode(node, keyType, itemType);
+}
+
+BST::Node* BST::Insert(KeyType keyType, ItemType itemType)
+{
+	if (root == nullptr) 
 	{
-		BST::Node* node = new BST::Node(keyType, itemType);
-		return node;
+		root = this->InsertNode(root, keyType, itemType);
+	}
+	else {
+		this->InsertNode(root, keyType, itemType);
+	}
+}
+
+BST::Node* BST::InsertNode(BST::Node* node, KeyType keyType, ItemType itemType)
+{
+	if (node == nullptr)
+	{
+		return new BST::Node(keyType, itemType);
 	}
 	else 
 	{
-		if (keyType > nodeRoot->Key) 
+		if (keyType > node->Key)
 		{
-			nodeRoot->RightChild = Insert(nodeRoot->RightChild, keyType, itemType);
+			node->RightChild = Insert(node->RightChild, keyType, itemType);
 		}
-		else if (keyType < nodeRoot->Key) 
+		else if (keyType < node->Key)
 		{
-			nodeRoot->LeftChild = Insert(nodeRoot->LeftChild, keyType, itemType);
+			node->LeftChild = Insert(node->LeftChild, keyType, itemType);
 		}
-		else if (keyType == nodeRoot->Key)
+		else if (keyType == node->Key)
 		{
-			nodeRoot->Item = itemType;
+			node->Item = itemType;
 		}
 	}
-	return nodeRoot;
+	return node;
 }
 
 bool BST::Remove(KeyType keyType) {

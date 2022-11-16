@@ -32,6 +32,7 @@ class BST
 	public:
 		ItemType* Lookup(KeyType keyType);
 		BST::Node* Insert(BST::Node* nodeRoot, KeyType keyType, ItemType itemType);
+		BST::Node* Insert(KeyType keyType, ItemType itemType);
 		bool Remove(KeyType keyType);
 		BST::Node* Remove(BST::Node* node, KeyType keyType);
 		BST::Node* root = nullptr;
@@ -60,6 +61,7 @@ class BST
 		static BST::Node* Leaf();
 		static bool IsLeaf(BST::Node* node);
 		BST::Node* RecursiveLookUpWorker(BST::Node* node, KeyType keyType);
+		Node* InsertNode(Node*, KeyType, ItemType);
 };
 
 
