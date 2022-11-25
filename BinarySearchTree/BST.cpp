@@ -172,7 +172,7 @@ bool BST::IsLeaf(Node* node)
 
 list<BST::ItemType*> BST::GetInOrderItemTypeList()
 {
-	list<ItemType*> listitemtypes;
+	list<BST::ItemType*> listitemtypes;
 
 	list<Node*> nodes = InOrder(root);
 
@@ -211,6 +211,19 @@ list<BST::Node*> BST::InOrder(BST::Node* node)
 	return nodeList;
 }
 
+list<BST::ItemType*> BST::GetPreOrderItemTypeList()
+{
+	list<BST::ItemType*> listitemtypes;
+
+	list<Node*> nodes = PreOrder(root);
+
+	for (auto const& nodeItem : nodes)
+	{
+		listitemtypes.push_back(&nodeItem->Item);
+	}
+	return listitemtypes;
+}
+
 list<BST::Node*> BST::PreOrder(Node* node)
 {
 	list<int>::iterator iteratorA;
@@ -239,6 +252,19 @@ list<BST::Node*> BST::PreOrder(Node* node)
 	return nodeList;
 }
 
+list<BST::ItemType*> BST::GetPostOrderItemTypeList()
+{
+	list<BST::ItemType*> listitemtypes;
+
+	list<Node*> nodes = PostOrder(root);
+
+	for (auto const& nodeItem : nodes)
+	{
+		listitemtypes.push_back(&nodeItem->Item);
+	}
+	return listitemtypes;
+}
+
 list<BST::Node*> BST::PostOrder(Node* node)
 {
 	list<int>::iterator iteratorA;
@@ -250,14 +276,14 @@ list<BST::Node*> BST::PostOrder(Node* node)
 		return nodeList;
 	}
 
-	list<Node*> leftList = PreOrder(node->LeftChild);
+	list<Node*> leftList = PostOrder(node->LeftChild);
 
 	for (auto const& n : leftList)
 	{
 		nodeList.push_back(n);
 	}
 
-	list<Node*> rightList = PreOrder(node->RightChild);
+	list<Node*> rightList = PostOrder(node->RightChild);
 
 	for (auto const& n : rightList)
 	{

@@ -185,6 +185,105 @@ BOOST_FIXTURE_TEST_SUITE(Remove, BSTTester)
 
 BOOST_AUTO_TEST_SUITE_END()
 
+BOOST_FIXTURE_TEST_SUITE(PostOrder, BSTTester)
+
+BOOST_AUTO_TEST_CASE(GivenTree_WhenGetListPreOrder_ReturnCorrectOrder)
+{
+    list<string*> results = BinarySearchTree.GetPostOrderItemTypeList();
+
+    list<string> resultSequence = { "H", "C", "E", "A", "R", "I", "A", "R", "S", "Y", "N", "B", };
+
+    list<string> resultStrings = {};
+    for (auto const& i : results)
+    {
+        resultStrings.push_back(*i);
+    }
+
+    bool validate = true;
+
+    list<string>::iterator itr = resultStrings.begin();
+    for (list<string>::iterator itr2 = resultSequence.begin(); itr2 != resultSequence.end(); itr2++)
+    {
+        if (*itr != *itr2)
+        {
+            validate = false;
+            break;
+        }
+
+        ++itr;
+    }
+
+    BOOST_CHECK_EQUAL(validate, true);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_FIXTURE_TEST_SUITE(PreOrder, BSTTester)
+
+BOOST_AUTO_TEST_CASE(GivenTree_WhenGetListPostOrder_ReturnCorrectOrder)
+{
+    list<string*> results = BinarySearchTree.GetPreOrderItemTypeList();
+
+    list<string> resultSequence = { "B", "I", "A", "E", "C", "H", "R", "N", "A", "Y", "R", "S", };
+
+    list<string> resultStrings = {};
+    for (auto const& i : results)
+    {
+        resultStrings.push_back(*i);
+    }
+
+    bool validate = true;
+
+    list<string>::iterator itr = resultStrings.begin();
+    for (list<string>::iterator itr2 = resultSequence.begin(); itr2 != resultSequence.end(); itr2++)
+    {
+        if (*itr != *itr2)
+        {
+            validate = false;
+            break;
+        }
+
+        ++itr;
+    }
+
+    BOOST_CHECK_EQUAL(validate, true);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_FIXTURE_TEST_SUITE(InOrder, BSTTester)
+
+    BOOST_AUTO_TEST_CASE(BinarySearchTreeExists_InOrder_ReturnCorrectOrder)
+    {
+	    list<string*> results = BinarySearchTree.GetInOrderItemTypeList();
+
+        list<string> resultSequence = { "C", "H", "E", "A", "I", "R", "B", "A", "N", "R", "Y", "S", };
+
+        list<string> resultStrings = {};
+        for (auto const& i : results) 
+        {
+            resultStrings.push_back(*i);
+        }
+
+        bool validate = true;
+
+        list<string>::iterator itr = resultStrings.begin();
+        for (list<string>::iterator itr2 = resultSequence.begin(); itr2 != resultSequence.end(); itr2++)
+        {
+            if (*itr != *itr2) 
+            {
+                validate = false;
+                break;
+            }
+
+            ++itr;
+        }
+
+        BOOST_CHECK_EQUAL(validate, true);
+    }
+BOOST_AUTO_TEST_SUITE_END()
+
+
 BSTTester::BSTTester()
 {
 }

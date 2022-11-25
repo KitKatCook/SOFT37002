@@ -44,6 +44,8 @@ class BST
 		BST() = default;
 		
 		list<BST::ItemType*> GetInOrderItemTypeList();
+		list<BST::ItemType*> GetPreOrderItemTypeList();
+		list<BST::ItemType*> GetPostOrderItemTypeList();
 
 		int GetHeight(Node* N);
 
