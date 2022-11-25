@@ -1,23 +1,21 @@
-#define BOOST_TEST_MODULE BinarySearchTreeTest
+﻿#define BOOST_TEST_MODULE BinarySearchTreeTest
 #include <boost/test/included/unit_test.hpp>
 #include "../BinarySearchTree/BST.h"
 
 using namespace std;
 
-struct GlobalFixture {
-    GlobalFixture() {
+struct GlobalFixture 
+{
+    GlobalFixture() 
+    {
         boost::debug::detect_memory_leaks(false);
     }
     ~GlobalFixture() { }
 };
 BOOST_GLOBAL_FIXTURE(GlobalFixture);
 
-//Searching for items using iteration
-//Searching for Entries using Recursive Functions
-//Inserting items into a BST
-
-
-struct BSTTester {
+struct BSTTester
+{
     BSTTester();      
     ~BSTTester();     
     void setup();          
@@ -25,69 +23,164 @@ struct BSTTester {
     void ConsolePrint(string message);
 
     BST BinarySearchTree;
-
 };
-
 
 BOOST_FIXTURE_TEST_SUITE(Insert, BSTTester)
 
-BOOST_AUTO_TEST_CASE(GivenEmptyTree_WhenInsertingNode_ThenCheckRootNodeIsValueSet)
-{
-    BST bst = BST();
-    bst.Insert(10, "A");
-    BOOST_CHECK_EQUAL(bst.root->item, "A");
-    BOOST_CHECK_EQUAL(bst.root->key, 10);
-}
-BOOST_AUTO_TEST_CASE(GivenTree_WhenInsertingKeyLessThanRoot_ThenCheckNewNodeIsInLeftSubtree)
-{
-    BST bst = BST();
-    bst.insert_wrapper(10, "A");
-    bst.insert_wrapper(5, "B");
-    BOOST_CHECK_EQUAL(bst.root->leftChild->key, 5);
-    BOOST_CHECK_EQUAL(bst.root->leftChild->item, "B");
-}
-BOOST_AUTO_TEST_CASE(GivenTree_WhenInsertingKeyGreaterThanRoot_ThenCheckNewNodeIsInRightSubtree)
-{
-    BST bst = BST();
-    bst.insert_wrapper(10, "A");
-    bst.insert_wrapper(15, "B");
-    BOOST_CHECK_EQUAL(bst.root->rightChild->key, 15);
-    BOOST_CHECK_EQUAL(bst.root->rightChild->item, "B");
-}
-BOOST_AUTO_TEST_CASE(GivenTree_WhenInsertingKeySameAsRoot_ThenCheckRootValue)
-{
-    BST bst = BST();
-    bst.insert_wrapper(10, "A");
-    bst.insert_wrapper(10, "B");
-    BOOST_CHECK_EQUAL(bst.root->item, "B");
-    BOOST_CHECK_EQUAL(bst.root->key, 10);
-}
-BOOST_AUTO_TEST_CASE(GivenTree_WhenInsertingKeys_ThenCheckKeysAreCorrectSubtrees)
-{
-    BST bst = BST();
-    bst.insert_wrapper(10, "A");
-    bst.insert_wrapper(5, "B");
-    bst.insert_wrapper(12, "C");
-    bst.insert_wrapper(11, "D");
-    BOOST_CHECK_EQUAL(bst.root->item, "A");
-    BOOST_CHECK_EQUAL(bst.root->leftChild->key, 5);
-    BOOST_CHECK_EQUAL(bst.root->leftChild->item, "B");
-    BOOST_CHECK_EQUAL(bst.root->rightChild->key, 12);
-    BOOST_CHECK_EQUAL(bst.root->rightChild->item, "C");
-    BOOST_CHECK_EQUAL(bst.root->rightChild->leftChild->key, 11);
-    BOOST_CHECK_EQUAL(bst.root->rightChild->leftChild->item, "D");
+    BOOST_AUTO_TEST_CASE(NoRootNode_InsertRootNode_CreatesNewNodeAsTheRootOfTheTree)
+    {
+        BST bst = BST();
+        bst.Insert(100, "B");
+
+        BOOST_CHECK_EQUAL(bst.root->Item, "B");
+        BOOST_CHECK_EQUAL(bst.root->Key, 100);
+    }
+
+    BOOST_AUTO_TEST_CASE(RootNodeExists_InsertValueLessThanRootNode_CreatesNewNodeOnTheLeftSubTree)
+    {
+        BST bst = BST();
+        bst.Insert(100, "B");
+        bst.Insert(50, "I");
+
+        BOOST_CHECK_EQUAL(bst.root->LeftChild->Key, 50);
+        BOOST_CHECK_EQUAL(bst.root->LeftChild->Item, "I");
+    }
+
+    BOOST_AUTO_TEST_CASE(RootNodeExists_InsertValueGreaterThanRootNode_CreatesNewNodeOnTheRightSubTree)
+    {
+        BST bst = BST();
+        bst.Insert(100, "B");
+        bst.Insert(150, "N");
+
+        BOOST_CHECK_EQUAL(bst.root->RightChild->Key, 150);
+        BOOST_CHECK_EQUAL(bst.root->RightChild->Item, "N");
+    }
+
+    BOOST_AUTO_TEST_CASE(RootNodeExists_InsertValueSameAsRootNode_RootNodeReplaces)
+    {
+        BST bst = BST();
+        bst.Insert(100, "B");
+
+        BOOST_CHECK_EQUAL(bst.root->Key, 100);
+        BOOST_CHECK_EQUAL(bst.root->Item, "B");
+
+        bst.Insert(100, "Y");
+
+        BOOST_CHECK_EQUAL(bst.root->Key, 100);
+        BOOST_CHECK_EQUAL(bst.root->Item, "Y");
+    }
+
+    BOOST_AUTO_TEST_CASE(RootNodeExists_InsertValueLessThanLeftChild_CreatesNewNodeOnTheLeftSubTree)
+    {
+        BST bst = BST();
+        bst.Insert(100, "B");
+        bst.Insert(50, "I");
+        bst.Insert(150, "N");
+        bst.Insert(25, "A");
+
+        BOOST_CHECK_EQUAL(bst.root->Item, "B");
+
+        BOOST_CHECK_EQUAL(bst.root->LeftChild->Key, 50);
+        BOOST_CHECK_EQUAL(bst.root->LeftChild->Item, "I");
+
+        BOOST_CHECK_EQUAL(bst.root->RightChild->Key, 150);
+        BOOST_CHECK_EQUAL(bst.root->RightChild->Item, "N");
+
+        BOOST_CHECK_EQUAL(bst.root->LeftChild->LeftChild->Key, 25);
+        BOOST_CHECK_EQUAL(bst.root->LeftChild->LeftChild->Item, "A");
+    }
 
 BOOST_AUTO_TEST_SUITE_END()
 
-BOOST_FIXTURE_TEST_SUITE(s, BSTTester)
+BOOST_FIXTURE_TEST_SUITE(IterativeLookUp, BSTTester)
 
-    BOOST_AUTO_TEST_CASE(IterativeLookUp_MultipleNodes_ReturnsCorrectValue)
+    BOOST_AUTO_TEST_CASE(BinarySearchTreeExists_IterativeLookUp_KeyExistsReturnsValue)
     {
-        BST::ItemType* itemType = BinarySearchTree.IterativeLookUp(10);
-        BOOST_CHECK_EQUAL(*itemType, "A");
+        BST::ItemType* itemType = BinarySearchTree.IterativeLookUp(50);
+        BOOST_CHECK_EQUAL(*itemType, "I");
+    }
 
-        itemType = BinarySearchTree.IterativeLookUp(20);
-        BOOST_CHECK_EQUAL(*itemType, "B");
+    BOOST_AUTO_TEST_CASE(BinarySearchTreeExists_IterativeLookUp_KeyDoesntExistsReturnsNull)
+    {
+        BST::ItemType* itemType = BinarySearchTree.IterativeLookUp(51);
+        BOOST_CHECK_EQUAL(itemType, nullptr);
+    }
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_FIXTURE_TEST_SUITE(RecursiveLookUp, BSTTester)
+
+    BOOST_AUTO_TEST_CASE(BinarySearchTreeExists_RecursiveLookUp_KeyExistsReturnsValue)
+    {
+        BST::Node* node = BinarySearchTree.RecursiveLookUp(50);
+        BOOST_CHECK_EQUAL(node->Item, "I");
+    }
+
+    BOOST_AUTO_TEST_CASE(BinarySearchTreeExists_RecursiveLookUp_KeyDoesntExistsReturnsNull)
+    {
+        BST::Node* node = BinarySearchTree.RecursiveLookUp(51);
+        BOOST_CHECK_EQUAL(node, nullptr);
+    }
+
+BOOST_AUTO_TEST_SUITE_END()
+
+BOOST_FIXTURE_TEST_SUITE(Remove, BSTTester)
+
+    BOOST_AUTO_TEST_CASE(BinarySearchTreeExists_Remove_RemoveLeftChildOfRootNode)
+    {
+        BST::Node* nodeExists = BinarySearchTree.RecursiveLookUp(50);
+        BOOST_CHECK_EQUAL(nodeExists->Item, "I");
+
+        BinarySearchTree.Remove(50);
+
+        BST::Node* node = BinarySearchTree.RecursiveLookUp(50);
+        BOOST_CHECK_EQUAL(node, nullptr);
+    }
+
+    BOOST_AUTO_TEST_CASE(BinarySearchTreeExists_Remove_RemoveRightChildOfRootNode)
+    {
+        BST::Node* nodeExists = BinarySearchTree.RecursiveLookUp(150);
+        BOOST_CHECK_EQUAL(nodeExists->Item, "N");
+
+        BinarySearchTree.Remove(150);
+
+        BST::Node* node = BinarySearchTree.RecursiveLookUp(150);
+        BOOST_CHECK_EQUAL(node, nullptr);
+    }
+
+    BOOST_AUTO_TEST_CASE(BinarySearchTreeExists_Remove_NodeHasOneChildRemoveNodeAndReplaceWithChild)
+    {
+        BST::Node* nodeExists = BinarySearchTree.RecursiveLookUp(-100);
+        BOOST_CHECK_EQUAL(nodeExists->Item, "C");
+
+        BinarySearchTree.Remove(-100);
+
+        BST::Node* node = BinarySearchTree.root->LeftChild->LeftChild->LeftChild->LeftChild;
+        BOOST_CHECK_EQUAL(node->Key, -50);
+
+    }
+
+    BOOST_AUTO_TEST_CASE(BinarySearchTreeExists_Remove_NodeHasTwoChildrenRemoveNodeAndReplaceWithChildInOrderSucessor)
+    {
+        BST::Node* nodeExists = BinarySearchTree.RecursiveLookUp(200);
+        BOOST_CHECK_EQUAL(nodeExists->Item, "Y");
+
+        BinarySearchTree.Remove(200);
+
+        BST::Node* node = BinarySearchTree.root->RightChild->RightChild;
+        BOOST_CHECK_EQUAL(node->Key, 175);
+
+    }
+
+    BOOST_AUTO_TEST_CASE(BinarySearchTreeExists_Remove_RemoveRootNode)
+    {
+        BST::Node* nodeExists = BinarySearchTree.RecursiveLookUp(100);
+        BOOST_CHECK_EQUAL(nodeExists->Item, "B");
+
+        BinarySearchTree.Remove(100);
+
+        BST::Node* node = BinarySearchTree.RecursiveLookUp(100);
+        BOOST_CHECK_EQUAL(node, nullptr);
     }
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -101,28 +194,25 @@ BSTTester::~BSTTester()
 }
 
 void BSTTester::setup()
-{
-    ConsolePrint("set up");
-    
+{    
     BinarySearchTree = BST();
 
-    BinarySearchTree.root = BinarySearchTree.Insert(BinarySearchTree.root, 10, "A");
-    BinarySearchTree.Insert(BinarySearchTree.root, 20, "B");
-    BinarySearchTree.Insert(BinarySearchTree.root, 5, "C");
-    BinarySearchTree.Insert(BinarySearchTree.root, 8, "D");
-    BinarySearchTree.Insert(BinarySearchTree.root, 18, "E");
-    BinarySearchTree.Insert(BinarySearchTree.root, 7, "F");
-    BinarySearchTree.Insert(BinarySearchTree.root, 99, "G");
-    BinarySearchTree.Insert(BinarySearchTree.root, 1, "H");
-    BinarySearchTree.Insert(BinarySearchTree.root, 4, "I");
-    BinarySearchTree.Insert(BinarySearchTree.root, 26, "J");
-    BinarySearchTree.Insert(BinarySearchTree.root, 54, "K");
-    BinarySearchTree.Insert(BinarySearchTree.root, 37, "L");
+    BinarySearchTree.Insert(100, "B");
+    BinarySearchTree.Insert(50, "I");
+    BinarySearchTree.Insert(150, "N");
+    BinarySearchTree.Insert(25, "A");
+    BinarySearchTree.Insert(75, "R");
+    BinarySearchTree.Insert(200, "Y");
+    BinarySearchTree.Insert(225, "S");
+    BinarySearchTree.Insert(0, "E");
+    BinarySearchTree.Insert(125, "A");
+    BinarySearchTree.Insert(175, "R");
+    BinarySearchTree.Insert(-100, "C");
+    BinarySearchTree.Insert(-50, "H");
 }
 
 void BSTTester::teardown()
 {
-    ConsolePrint("teardown");
 }
 
 void BSTTester::ConsolePrint(string message) 

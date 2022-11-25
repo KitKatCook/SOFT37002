@@ -30,30 +30,20 @@ class BST
 	};
 
 	public:
-		ItemType* Lookup(KeyType keyType);
 		BST::Node* Insert(BST::Node* nodeRoot, KeyType keyType, ItemType itemType);
 		BST::Node* Insert(KeyType keyType, ItemType itemType);
+		
 		bool Remove(KeyType keyType);
 		BST::Node* Remove(BST::Node* node, KeyType keyType);
+		
 		BST::Node* root = nullptr;
+		
 		ItemType* IterativeLookUp(KeyType keyType);
 		BST::Node* RecursiveLookUp(KeyType keyType);
+		
 		BST() = default;
-		void PrintInOrder(BST::Node* node);
-
-		list<BST::Node*> InOrder(BST::Node* node);
-
-		void PivotRight(KeyType keyType);
-
-		void PivotLeft(KeyType keyType);
-
-		BST::Node* PivotRight(BST::Node* B);
-
-		BST::Node* PivotLeft(BST::Node* A);
-
-		list<BST::Node*> PreOrder(Node* node);
-
-		list<BST::Node*> PostOrder(Node* node);
+		
+		list<BST::ItemType*> GetInOrderItemTypeList();
 
 		int GetHeight(Node* N);
 
@@ -62,6 +52,12 @@ class BST
 		static bool IsLeaf(BST::Node* node);
 		BST::Node* RecursiveLookUpWorker(BST::Node* node, KeyType keyType);
 		Node* InsertNode(Node*, KeyType, ItemType);
+
+		list<BST::Node*> InOrder(BST::Node* node);
+
+		list<BST::Node*> PreOrder(Node* node);
+
+		list<BST::Node*> PostOrder(Node* node);
 };
 
 
