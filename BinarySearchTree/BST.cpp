@@ -194,16 +194,16 @@ list<BST::Node*> BST::InOrder(BST::Node* node)
 		return nodeList;
 	}
 
-	list<Node*> leftList = InOrder(node->LeftChild);
-	for (auto const& n : leftList) 
+	list<Node*> leftNodesList = InOrder(node->LeftChild);
+	for (auto const& n : leftNodesList) 
 	{
 		nodeList.push_back(n);
 	}
 
 	nodeList.push_back(node);
 	
-	list<Node*> rightList = InOrder(node->RightChild);
-	for (auto const& n : rightList) 
+	list<Node*> rightNodesList = InOrder(node->RightChild);
+	for (auto const& n : rightNodesList) 
 	{
 		nodeList.push_back(n);
 	}
@@ -237,14 +237,14 @@ list<BST::Node*> BST::PreOrder(Node* node)
 
 	nodeList.push_back(node);
 
-	list<Node*> leftList = PreOrder(node->LeftChild);
-	for (auto const& n : leftList)
+	list<Node*> leftNodesList = PreOrder(node->LeftChild);
+	for (auto const& n : leftNodesList)
 	{
 		nodeList.push_back(n);
 	}
 
-	list<Node*> rightList = PreOrder(node->RightChild);
-	for (auto const& n : rightList)
+	list<Node*> rightNodesList = PreOrder(node->RightChild);
+	for (auto const& n : rightNodesList)
 	{
 		nodeList.push_back(n);
 	}
@@ -276,16 +276,16 @@ list<BST::Node*> BST::PostOrder(Node* node)
 		return nodeList;
 	}
 
-	list<Node*> leftList = PostOrder(node->LeftChild);
+	list<Node*> leftNodesList = PostOrder(node->LeftChild);
 
-	for (auto const& n : leftList)
+	for (auto const& n : leftNodesList)
 	{
 		nodeList.push_back(n);
 	}
 
-	list<Node*> rightList = PostOrder(node->RightChild);
+	list<Node*> rightNodesList = PostOrder(node->RightChild);
 
-	for (auto const& n : rightList)
+	for (auto const& n : rightNodesList)
 	{
 		nodeList.push_back(n);
 	}
