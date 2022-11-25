@@ -61,5 +61,3 @@ class BST
 
 		list<BST::Node*> PostOrder(Node* node);
 };
-
-
